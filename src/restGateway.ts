@@ -1,4 +1,4 @@
-import crypto from "@eventhorizon/exchange-crypto";
+import * as crypto from "@eventhorizon/exchange-crypto";
 import {
   AvailableBalance,
   CoinList,
