@@ -1,0 +1,31 @@
+{
+  "plugins": ["prettier", "@typescript-eslint", "import"],
+  "extends": ["airbnb-typescript/base", "plugin:import/recommended", "plugin:prettier/recommended", "prettier"],
+  "parserOptions": {
+    "project": ["tsconfig-base.json"]
+  },
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "error",
+		"import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "import/prefer-default-export": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-named-as-default": "off",
+    "import/named": "off",
+    "max-classes-per-file": "off",
+    "func-names": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+     "import/resolver": {
+       "typescript": {
+         "alwaysTryTypes": true,
+         "project": "./"
+       }
+     }
+  }
+}
