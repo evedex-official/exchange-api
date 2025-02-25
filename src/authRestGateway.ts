@@ -47,13 +47,13 @@ export interface Session {
   token: RefreshedJWT;
 }
 
-export interface AuthGatewayOptions {
+export interface AuthRestGatewayOptions {
   authURI: string;
   httpClient: HttpClient;
 }
 
-export class AuthGateway {
-  constructor(public readonly options: AuthGatewayOptions) {}
+export class AuthRestGateway {
+  constructor(public readonly options: AuthRestGatewayOptions) {}
 
   protected authGet<T>(path: string): Promise<T> {
     return this.options.httpClient
