@@ -89,14 +89,14 @@ export interface ListenTpSlQuery extends UserParam {}
 
 export interface UnListenTpSlQuery extends UserParam {}
 
-export interface WsGatewayOptions {
+export interface ExchangeWsGatewayOptions {
   wsClient: CentrifugeClient;
 }
 
-export class WsGateway {
+export class ExchangeWsGateway {
   private readonly listenedChannels = new Set<string>();
 
-  constructor(public readonly options: WsGatewayOptions) {}
+  constructor(public readonly options: ExchangeWsGatewayOptions) {}
 
   protected listenChannel<T>(name: string, recoverable: boolean, handler: Callback<{ data: T }>) {
     if (this.listenedChannels.has(name)) return;

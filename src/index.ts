@@ -1,4 +1,4 @@
 export * as utils from "./utils";
-export * from "./wsGateway";
-export * from "./restGateway";
-export * from "./authGateway";
+export * from "./exchangeWsGateway";
+export * from "./exchangeRestGateway";
+export * from "./authRestGateway";

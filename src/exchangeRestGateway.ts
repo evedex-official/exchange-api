@@ -90,13 +90,13 @@ export interface TpSlCancelQuery {
   id: string;
 }
 
-export interface RestGatewayOptions {
+export interface ExchangeRestGatewayOptions {
   exchangeURI: string;
   httpClient: HttpClient;
 }
 
-export class RestGateway {
-  constructor(public readonly options: RestGatewayOptions) {}
+export class ExchangeRestGateway {
+  constructor(public readonly options: ExchangeRestGatewayOptions) {}
 
   protected get<T>(path: string): Promise<T> {
     return this.options.httpClient
