@@ -80,6 +80,7 @@ export interface AvailableBalance {
   position: AvailableBalancePosition[];
   openOrder: AvailableBalanceOpenOrder[];
   availableBalance: number;
+  updatedAt: string;
   // @deprecated
   openOrders: UnfilledOrdersVolume;
   // @deprecated
