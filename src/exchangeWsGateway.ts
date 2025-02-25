@@ -63,6 +63,7 @@ export interface UnListenTradeQuery {
 export interface AccountEvent {
   user: string;
   marginCall: boolean;
+  updatedAt: string;
 }
 
 export interface UserParam {
