@@ -57,6 +57,7 @@ export type WalletBalanceList = WalletBalance[];
 export interface Funding {
   coin: string;
   quantity: number;
+  updatedAt: string;
 }
 
 export type FundingList = Funding[];

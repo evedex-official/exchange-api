@@ -66,6 +66,13 @@ export interface AccountEvent {
   updatedAt: string;
 }
 
+export interface FundingEvent {
+  user: string;
+  coin: string;
+  quantity: string;
+  updatedAt: string;
+}
+
 export interface UserParam {
   userExchangeId: string | number;
 }
@@ -73,6 +80,10 @@ export interface UserParam {
 export interface ListenAccountQuery extends UserParam {}
 
 export interface UnListenAccountQuery extends UserParam {}
+
+export interface ListenFundingQuery extends UserParam {}
+
+export interface UnListenFundingQuery extends UserParam {}
 
 export interface ListenPositionsQuery extends UserParam {}
 
@@ -229,6 +240,18 @@ export class ExchangeWsGateway {
 
   unListenAccount(query: UnListenAccountQuery) {
     this.unListenChannel(`user-${query.userExchangeId}`, true);
+  }
+
+  onFundingUpdate = signal<FundingEvent>();
+
+  listenFunding(query: ListenFundingQuery) {
+    this.listenChannel<FundingEvent>(`funding-${query.userExchangeId}`, true, ({ data }) =>
+      this.onFundingUpdate(data),
+    );
+  }
+
+  unListenFunding(query: UnListenFundingQuery) {
+    this.unListenChannel(`funding-${query.userExchangeId}`, true);
   }
 
   onPositionUpdate = signal<Position>();
