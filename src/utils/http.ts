@@ -1,3 +1,5 @@
+import { JWT, RefreshedJWT } from "./types";
+
 type Method =
   | "get"
   | "GET"
@@ -44,6 +46,10 @@ export class RequestError extends Error {
 }
 
 export interface HttpClient {
+  setSession(jwt: JWT | RefreshedJWT);
+
+  getSession(): JWT | RefreshedJWT | undefined;
+
   request<Data>(requestConfig: Request): Promise<Response<Data>>;
 
   authRequest<Data>(requestConfig: Request): Promise<Response<Data>>;

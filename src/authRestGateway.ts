@@ -1,12 +1,4 @@
-import { HttpClient } from "./utils";
-
-export interface JWT {
-  accessToken: string;
-}
-
-export interface RefreshedJWT extends JWT {
-  refreshToken: string;
-}
+import { HttpClient, RefreshedJWT } from "./utils";
 
 export interface SignInSiweQuery {
   address: string;
