@@ -12,6 +12,7 @@ import {
   Position,
   TpSl,
   Trade,
+  expandOrderBook,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -189,12 +190,7 @@ export class ExchangeWsGateway {
 
         this.onOrderBookUpdate({
           instrument: data.instrument,
-          t: data.orderBook.t,
-          asks,
-          bids,
-          asksVolumePercent,
-          bidsVolumePercent,
-          spread,
+          ...expandOrderBook(data.orderBook),
         });
       },
     );

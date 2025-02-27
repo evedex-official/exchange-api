@@ -1,3 +1,6 @@
+import Big from "big.js";
+import { MarketDepth } from "./types";
+
 export enum MatcherState {
   Active = "active",
   RequestStatusFail = "request-status-fail",
@@ -36,4 +39,44 @@ export enum TpSlStatus {
   Triggered = "triggered",
   Done = "done",
   Cancelled = "cancelled",
+}
+
+export function expandOrderBook(orderBook: MarketDepth) {
+  const asksMetrics = orderBook.asks.reduce(
+    ({ max, sum }, { quantity }) => ({
+      max: Math.max(quantity, max),
+      sum: Big(quantity).plus(sum).toString(),
+    }),
+    { max: 0, sum: "0" },
+  );
+  const bidsMetrics = orderBook.bids.reduce(
+    ({ max, sum }, { quantity }) => ({
+      max: Math.max(quantity, max),
+      sum: Big(quantity).plus(sum).toString(),
+    }),
+    { max: 0, sum: "0" },
+  );
+  const asks = orderBook.asks.reverse().map((item) => ({
+    ...item,
+    fillingPercent: item.quantity / asksMetrics.max,
+  }));
+  const bids = orderBook.bids.reverse().map((item) => ({
+    ...item,
+    fillingPercent: item.quantity / bidsMetrics.max,
+  }));
+  const orderBookVolume = Big(asksMetrics.sum).plus(bidsMetrics.sum);
+  const asksVolumePercent = !orderBookVolume.eq(0)
+    ? Big(asksMetrics.sum).div(orderBookVolume).toNumber()
+    : 0;
+  const bidsVolumePercent = 1 - asksVolumePercent;
+  const spread = bids.length && asks.length ? asks[0].price - bids[0].price : 0;
+
+  return {
+    t: orderBook.t,
+    asks,
+    bids,
+    asksVolumePercent,
+    bidsVolumePercent,
+    spread,
+  };
 }
