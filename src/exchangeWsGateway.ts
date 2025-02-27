@@ -14,6 +14,10 @@ import {
   Trade,
 } from "./utils";
 
+export interface HeartbeatEvent {
+  t: number;
+}
+
 export interface MatcherUpdateEvent {
   state: MatcherState;
 }
@@ -127,6 +131,16 @@ export class ExchangeWsGateway {
   }
 
   // Market
+  onHeartbeat = signal<HeartbeatEvent>();
+
+  listenHeartbeat() {
+    this.listenChannel<HeartbeatEvent>("heartbeat", false, (ctx) => this.onHeartbeat(ctx.data));
+  }
+
+  unListenHeartbeat() {
+    this.unListenChannel("heartbeat", false);
+  }
+
   onMatcherUpdate = signal<MatcherUpdateEvent>();
 
   listenMatcher() {

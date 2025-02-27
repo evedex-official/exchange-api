@@ -1,4 +1,4 @@
-import { JWT, RefreshedJWT } from "./types";
+import { ApiKey, JWT, RefreshedJWT } from "./types";
 
 type Method =
   | "get"
@@ -46,9 +46,9 @@ export class RequestError extends Error {
 }
 
 export interface HttpClient {
-  setSession(jwt: JWT | RefreshedJWT);
+  setSession(session: JWT | RefreshedJWT | ApiKey): any;
 
-  getSession(): JWT | RefreshedJWT | undefined;
+  getSession(): JWT | RefreshedJWT | ApiKey | undefined;
 
   request<Data>(requestConfig: Request): Promise<Response<Data>>;
 
@@ -72,9 +72,8 @@ export function serializeQueryParams<P extends object>(params: P) {
       if (Array.isArray(v)) {
         return v.map((e) => `${f}=${queryParamValueToString(e)}`).join("&");
       }
-      if (v) {
-        return `${f}=${queryParamValueToString(v)}`;
-      }
+
+      return `${f}=${queryParamValueToString(v)}`;
     })
     .join("&");
 }

@@ -20,6 +20,10 @@ export interface RefreshedJWT extends JWT {
   refreshToken: string;
 }
 
+export interface ApiKey {
+  apiKey: string;
+}
+
 export interface User {
   id: string;
   authId: string;

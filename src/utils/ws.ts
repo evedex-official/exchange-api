@@ -17,5 +17,7 @@ export interface CentrifugeClient {
 
   onDisconnected(callback: Callback<any>): void;
 
+  connect(): void;
+
   assignChannel(name: string, options?: AssignChannelOptions): CentrifugeSubscription;
 }

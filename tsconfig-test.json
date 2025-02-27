@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "types": ["mocha"],
+    "rootDir": ".",
+    "target": "ES2024",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src", "test"]
+}

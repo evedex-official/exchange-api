@@ -1,4 +1,5 @@
 import * as crypto from "@eventhorizon/exchange-crypto";
+import { URL } from "url";
 import {
   AvailableBalance,
   CoinList,
@@ -98,21 +99,30 @@ export interface ExchangeRestGatewayOptions {
 export class ExchangeRestGateway {
   constructor(public readonly options: ExchangeRestGatewayOptions) {}
 
-  protected get<T>(path: string): Promise<T> {
+  protected url(path: string, search?: string) {
+    const url = new URL(this.options.exchangeURI);
+    url.pathname = path;
+    if (search) {
+      url.search = search;
+    }
+    return url.toString();
+  }
+
+  protected get<T>(path: string, search?: string): Promise<T> {
     return this.options.httpClient
       .request<T>({
         method: "GET",
-        url: `${this.options.exchangeURI}${path}`,
+        url: this.url(path, search),
         headers: { Accept: "application/json" },
       })
       .then((res) => res.data);
   }
 
-  protected authGet<T>(path: string): Promise<T> {
+  protected authGet<T>(path: string, search?: string): Promise<T> {
     return this.options.httpClient
       .authRequest<T>({
         method: "GET",
-        url: `${this.options.exchangeURI}${path}`,
+        url: this.url(path, search),
         headers: { Accept: "application/json" },
       })
       .then((res) => res.data);
@@ -122,7 +132,7 @@ export class ExchangeRestGateway {
     return this.options.httpClient
       .authRequest<T>({
         method: "POST",
-        url: `${this.options.exchangeURI}${path}`,
+        url: this.url(path),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -136,7 +146,7 @@ export class ExchangeRestGateway {
     return this.options.httpClient
       .authRequest<T>({
         method: "PUT",
-        url: `${this.options.exchangeURI}${path}`,
+        url: this.url(path),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -150,7 +160,7 @@ export class ExchangeRestGateway {
     return this.options.httpClient
       .authRequest<T>({
         method: "DELETE",
-        url: `${this.options.exchangeURI}${path}`,
+        url: this.url(path),
         headers: { Accept: "application/json" },
       })
       .then((res) => res.data);
@@ -164,10 +174,11 @@ export class ExchangeRestGateway {
 
   getMarketDepth(init: MarketDepthQuery) {
     return this.get<MarketDepth>(
-      `/api/market/${init.instrument}/deep?${serializeQueryParams({
+      `/api/market/${init.instrument}/deep`,
+      serializeQueryParams({
         maxLevel: init.maxLevel,
         roundPrice: init.roundPrice,
-      })}`,
+      }),
     );
   }
 
@@ -202,21 +213,23 @@ export class ExchangeRestGateway {
 
   getOrders(query: OrderListQuery) {
     return this.authGet<OrderList>(
-      `/api/order?${serializeQueryParams({
+      `/api/order`,
+      serializeQueryParams({
         ...query,
         limit: query.limit ?? 20,
         offset: query.offset ?? 0,
-      })}`,
+      }),
     );
   }
 
   getTpSl(query: TpSlListQuery) {
     return this.authGet<TpSlList>(
-      `/api/tpsl?${serializeQueryParams({
+      `/api/tpsl`,
+      serializeQueryParams({
         ...query,
         limit: query.limit ?? 20,
         offset: query.offset ?? 0,
-      })}`,
+      }),
     );
   }
 
@@ -231,7 +244,10 @@ export class ExchangeRestGateway {
 
   getInstrumentsMetrics() {
     return this.get<InstrumentMetricsList>(
-      `/api/market/instrument?fields=${InstrumentListQueryField.Metrics}`,
+      `/api/market/instrument`,
+      serializeQueryParams({
+        fields: InstrumentListQueryField.Metrics,
+      }),
     );
   }
 

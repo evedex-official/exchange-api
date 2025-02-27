@@ -1,4 +1,5 @@
-import { HttpClient, RefreshedJWT } from "./utils";
+import { ApiKey, HttpClient, JWT, RefreshedJWT } from "./utils";
+import { URL } from "url";
 
 export interface SignInSiweQuery {
   address: string;
@@ -55,11 +56,20 @@ export interface AuthRestGatewayOptions {
 export class AuthRestGateway {
   constructor(public readonly options: AuthRestGatewayOptions) {}
 
-  protected authGet<T>(path: string): Promise<T> {
+  protected url(path: string, search?: string) {
+    const url = new URL(this.options.authURI);
+    url.pathname = path;
+    if (search) {
+      url.search = search;
+    }
+    return url.toString();
+  }
+
+  protected authGet<T>(path: string, search?: string): Promise<T> {
     return this.options.httpClient
       .authRequest<T>({
         method: "GET",
-        url: `${this.options.authURI}${path}`,
+        url: this.url(path, search),
         headers: { Accept: "application/json" },
       })
       .then((res) => res.data);
@@ -69,7 +79,7 @@ export class AuthRestGateway {
     return this.options.httpClient
       .request<T>({
         method: "POST",
-        url: `${this.options.authURI}${path}`,
+        url: this.url(path),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -79,13 +89,21 @@ export class AuthRestGateway {
       .then((res) => res.data);
   }
 
+  setSession(session: JWT | RefreshedJWT | ApiKey) {
+    this.options.httpClient.setSession(session);
+  }
+
+  getSession() {
+    return this.options.httpClient.getSession();
+  }
+
   // Getters
   me() {
     return this.authGet<Me>("/auth/user/me");
   }
 
   myServices() {
-    return this.authGet<UserServiceList>("/api/user/me/service");
+    return this.authGet<UserServiceList>("/auth/user/me/service");
   }
 
   // Actions
@@ -97,7 +115,7 @@ export class AuthRestGateway {
     return this.options.httpClient
       .request<Session>({
         method: "POST",
-        url: `${this.options.authURI}/auth/refresh`,
+        url: this.url("/auth/refresh"),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
