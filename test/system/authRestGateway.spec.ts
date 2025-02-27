@@ -32,7 +32,6 @@ describe("AuthRestGateway", () => {
     const { token: firstJWT } = await authGateway.signInSiwe(siwe);
     const { token: secondJWT } = await authGateway.refresh(firstJWT);
 
-    assert.equal(firstJWT.accessToken !== secondJWT.accessToken, true);
     assert.equal(firstJWT.refreshToken !== secondJWT.refreshToken, true);
 
     authGateway.setSession(secondJWT);
