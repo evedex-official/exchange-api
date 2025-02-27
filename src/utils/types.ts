@@ -1,5 +1,5 @@
 import { utils as cryptoUtils } from "@eventhorizon/exchange-crypto";
-import { OrderGroup, OrderStatus, OrderType, TpSlStatus } from "./exchange";
+import { MatcherState, OrderGroup, OrderStatus, OrderType, TpSlStatus } from "./exchange";
 
 export interface PaginatedQuery {
   limit?: number;
@@ -284,10 +284,12 @@ export type InstrumentMetricsList = InstrumentMetrics[];
 
 // Market
 export interface MarketInfo {
+  state: MatcherState;
   fees: {
     maker: number;
     taker: number;
   };
+  updatedAt: string;
 }
 
 export interface MarketDepthLevel {

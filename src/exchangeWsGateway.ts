@@ -21,6 +21,7 @@ export interface HeartbeatEvent {
 
 export interface MatcherUpdateEvent {
   state: MatcherState;
+  updatedAt: string;
 }
 
 export interface OrderBookLevelUpdate extends MarketDepthLevel {
