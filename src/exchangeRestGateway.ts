@@ -10,6 +10,7 @@ import {
   MarketDepth,
   MarketInfo,
   Order,
+  OrderBookRoundPrices,
   OrderGroup,
   OrderList,
   OrderStatus,
@@ -29,14 +30,6 @@ import {
 
 export enum InstrumentListQueryField {
   Metrics = "metrics",
-}
-
-export enum OrderBookRoundPrices {
-  OneTenth = "0.1",
-  One = "1",
-  Ten = "10",
-  Fifty = "50",
-  Hundred = "100",
 }
 
 export interface MarketDepthQuery {

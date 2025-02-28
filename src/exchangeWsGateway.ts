@@ -13,6 +13,7 @@ import {
   TpSl,
   Trade,
   expandOrderBook,
+  OrderBookRoundPrices,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -40,6 +41,7 @@ export interface OrderBookUpdateEvent {
 
 export interface ListenOrderBookQuery {
   instrument: string;
+  roundPrices?: OrderBookRoundPrices;
 }
 
 export interface UnListenOrderBookQuery {
@@ -157,43 +159,13 @@ export class ExchangeWsGateway {
 
   listenOrderBook(query: ListenOrderBookQuery) {
     this.listenChannel<{ instrument: string; orderBook: MarketDepth }>(
-      `orderBook-${query.instrument}`,
+      `orderBook-${query.instrument}-${query.roundPrices ?? OrderBookRoundPrices.OneTenth}`,
       false,
-      ({ data }) => {
-        const asksMetrics = data.orderBook.asks.reduce(
-          ({ max, sum }, { quantity }) => ({
-            max: Math.max(quantity, max),
-            sum: Big(quantity).plus(sum).toString(),
-          }),
-          { max: 0, sum: "0" },
-        );
-        const bidsMetrics = data.orderBook.bids.reduce(
-          ({ max, sum }, { quantity }) => ({
-            max: Math.max(quantity, max),
-            sum: Big(quantity).plus(sum).toString(),
-          }),
-          { max: 0, sum: "0" },
-        );
-        const asks = data.orderBook.asks.reverse().map((item) => ({
-          ...item,
-          fillingPercent: item.quantity / asksMetrics.max,
-        }));
-        const bids = data.orderBook.bids.reverse().map((item) => ({
-          ...item,
-          fillingPercent: item.quantity / bidsMetrics.max,
-        }));
-        const orderBookVolume = Big(asksMetrics.sum).plus(bidsMetrics.sum);
-        const asksVolumePercent = !orderBookVolume.eq(0)
-          ? Big(asksMetrics.sum).div(orderBookVolume).toNumber()
-          : 0;
-        const bidsVolumePercent = 1 - asksVolumePercent;
-        const spread = bids.length && asks.length ? asks[0].price - bids[0].price : 0;
-
+      ({ data: { instrument, orderBook } }) =>
         this.onOrderBookUpdate({
-          instrument: data.instrument,
-          ...expandOrderBook(data.orderBook),
-        });
-      },
+          instrument,
+          ...expandOrderBook(orderBook),
+        }),
     );
   }
 
