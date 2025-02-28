@@ -46,6 +46,7 @@ export interface ListenOrderBookQuery {
 
 export interface UnListenOrderBookQuery {
   instrument: string;
+  roundPrices?: OrderBookRoundPrices;
 }
 
 export interface OrderBookBestUpdateEvent extends MarketDepth {
@@ -170,7 +171,10 @@ export class ExchangeWsGateway {
   }
 
   unListenOrderBook(query: UnListenOrderBookQuery) {
-    this.unListenChannel(`orderBook-${query.instrument}`, false);
+    this.unListenChannel(
+      `orderBook-${query.instrument}-${query.roundPrices ?? OrderBookRoundPrices.OneTenth}`,
+      false,
+    );
   }
 
   onOrderBookBestUpdate = signal<OrderBookBestUpdateEvent>();
