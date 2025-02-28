@@ -1,5 +1,4 @@
 import { ApiKey, HttpClient, JWT, RefreshedJWT } from "./utils";
-import { URL } from "url";
 
 export interface SignInSiweQuery {
   address: string;
