@@ -208,7 +208,7 @@ export class ExchangeRestGateway {
       `/api/order`,
       serializeQueryParams({
         ...query,
-        limit: query.limit ?? 20,
+        limit: query.limit,
         offset: query.offset ?? 0,
       }),
     );
