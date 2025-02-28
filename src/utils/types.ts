@@ -311,5 +311,5 @@ export interface Trade {
   fillQuantity: number;
   fillPrice: number;
   status: OrderStatus.PartiallyFilled | OrderStatus.Filled;
-  createdAt: Date;
+  createdAt: string;
 }

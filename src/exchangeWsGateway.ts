@@ -57,7 +57,7 @@ export interface TradeEvent {
   side: cryptoUtils.Side;
   fillQuantity: number;
   fillPrice: number;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface ListenTradeQuery {
