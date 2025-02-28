@@ -227,7 +227,7 @@ export class ExchangeRestGateway {
       `/api/tpsl`,
       serializeQueryParams({
         ...query,
-        limit: query.limit ?? 20,
+        limit: query.limit,
         offset: query.offset ?? 0,
       }),
     );
