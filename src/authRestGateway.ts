@@ -19,11 +19,11 @@ export enum Role {
 export interface Me {
   id: string;
   role: Role;
+  smartAccountAddress: string;
 }
 
 export interface User extends Me {
   wallet: string;
-  smartAccountAddress: string;
   smartAccountDeployed: boolean;
   createdAt: string;
   updatedAt: string;
