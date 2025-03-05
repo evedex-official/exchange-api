@@ -254,6 +254,8 @@ export interface Instrument {
   maxLeverage: number;
   leverageLimit: LeverageLimit;
   maintenanceMargin: MaintenanceMarginMap;
+  lotSize: number;
+  quantityIncrement: number;
   multiplier: number;
   visibility: InstrumentVisibility;
 }
