@@ -1,7 +1,5 @@
 default:
   image: mirror.gcr.io/node:latest
-  tags:
-    - k8s-dev
   before_script:
     - npm ci
     - sed -i "s/groups\/59\/-/projects\/${CI_PROJECT_ID}/" ${CI_PROJECT_DIR}/.npmrc
