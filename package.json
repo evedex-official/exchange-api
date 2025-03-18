@@ -61,7 +61,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@eventhorizon/exchange-crypto": "^1.0.3",
+    "@eventhorizon/exchange-crypto": "^1.0.5",
     "big.js": "^6.2.2"
   }
 }
