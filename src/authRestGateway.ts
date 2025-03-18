@@ -4,6 +4,11 @@ export interface SignInSiweQuery {
   address: string;
   message: string;
   signature: string;
+  nonce?: string;
+}
+
+export interface Nonce {
+  nonce: string;
 }
 
 export enum Role {
@@ -74,6 +79,16 @@ export class AuthRestGateway {
       .then((res) => res.data);
   }
 
+  protected get<T>(path: string, search?: string): Promise<T> {
+    return this.options.httpClient
+      .request<T>({
+        method: "GET",
+        url: this.url(path, search),
+        headers: { Accept: "application/json" },
+      })
+      .then((res) => res.data);
+  }
+
   protected post<T>(path: string, body: any): Promise<T> {
     return this.options.httpClient
       .request<T>({
@@ -108,6 +123,10 @@ export class AuthRestGateway {
   // Actions
   signInSiwe(query: SignInSiweQuery) {
     return this.post<Session>("/auth/sign-in/siwe", query);
+  }
+
+  getNonce() {
+    return this.get<Nonce>("/auth/nonce");
   }
 
   refresh({ refreshToken }: RefreshedJWT) {
