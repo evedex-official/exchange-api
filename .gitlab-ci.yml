@@ -30,4 +30,4 @@ publish:
     - npm config set '//gitlab.eventhorizon.life/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
     - npx semantic-release
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH
