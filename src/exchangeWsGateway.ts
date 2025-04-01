@@ -82,6 +82,12 @@ export interface FundingEvent {
   updatedAt: string;
 }
 
+export interface FundingRateEvent {
+  instrument: string;
+  fundingRate: string;
+  createdAt: number;
+}
+
 export interface UserParam {
   userExchangeId: string | number;
 }
@@ -287,5 +293,17 @@ export class ExchangeWsGateway {
 
   unListenTpSl(query: UnListenTpSlQuery) {
     this.unListenChannel(`tpsl-${query.userExchangeId}`, true);
+  }
+
+  onFundingRateUpdate = signal<FundingRateEvent>();
+
+  listenFundingRate() {
+    this.listenChannel<FundingRateEvent>("funding-rate", true, ({ data }) =>
+      this.onFundingRateUpdate(data),
+    );
+  }
+
+  unListenFundingRate() {
+    this.unListenChannel("funding-rate", true);
   }
 }
