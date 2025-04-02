@@ -270,6 +270,7 @@ export interface InstrumentMetrics extends Instrument {
   maxQuantity: number;
   maxSlippage: number;
   fundingRate: number;
+  fundingRateCreatedAt: Date;
   slippageLimit: number;
   fatFingerPriceProtection: number;
   lastPrice: number;
