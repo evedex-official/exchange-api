@@ -151,6 +151,23 @@ export interface Order {
 
 export type OrderList = ListOf<Order>;
 
+export type OpenedOrder = Pick<
+  Order,
+  | "id"
+  | "user"
+  | "instrument"
+  | "side"
+  | "type"
+  | "status"
+  | "quantity"
+  | "limitPrice"
+  | "unFilledQuantity"
+  | "fee"
+  | "updatedAt"
+>;
+
+export type OpenedOrdersList = OpenedOrder[];
+
 export enum OrderFillFeeType {
   Liquidation = "liquidation",
   Adl = "adl",
