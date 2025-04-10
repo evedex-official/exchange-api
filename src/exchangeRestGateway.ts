@@ -26,6 +26,7 @@ import {
   User,
   WalletBalanceList,
   serializeQueryParams,
+	type OpenedOrdersList,
 } from "./utils";
 
 export enum InstrumentListQueryField {
@@ -212,6 +213,10 @@ export class ExchangeRestGateway {
         offset: query.offset ?? 0,
       }),
     );
+  }
+
+  getOpenedOrders() {
+    return this.authGet<OpenedOrdersList>(`/api/order/opened`);
   }
 
   getTpSl(query: TpSlListQuery) {
