@@ -333,3 +333,11 @@ export interface Trade {
   status: OrderStatus.PartiallyFilled | OrderStatus.Filled;
   createdAt: string;
 }
+
+export interface RecentTrade {
+  instrument: string;
+  side: cryptoUtils.Side;
+  fillQuantity: number;
+  fillPrice: number;
+  createdAt: string;
+}
