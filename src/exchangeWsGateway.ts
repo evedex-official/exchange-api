@@ -1,4 +1,3 @@
-import Big from "big.js";
 import { utils as cryptoUtils } from "@eventhorizon/exchange-crypto";
 import {
   signal,
@@ -14,6 +13,7 @@ import {
   Trade,
   expandOrderBook,
   OrderBookRoundPrices,
+  type RecentTrade,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -220,6 +220,24 @@ export class ExchangeWsGateway {
 
   unListenTrades(query: UnListenTradeQuery) {
     this.unListenChannel(`trade-${query.instrument}`, false);
+  }
+
+  onRecentTrade = signal<RecentTrade>();
+
+  listenRecentTrades(query: ListenTradeQuery) {
+    this.listenChannel<RecentTrade>(`recent-trade-${query.instrument}`, false, ({ data }) =>
+      this.onRecentTrade({
+        instrument: data.instrument,
+        side: data.side,
+        fillQuantity: data.fillQuantity,
+        fillPrice: data.fillPrice,
+        createdAt: data.createdAt,
+      }),
+    );
+  }
+
+  unListenRecentTrades(query: UnListenTradeQuery) {
+    this.unListenChannel(`recent-trade-${query.instrument}`, false);
   }
 
   // User

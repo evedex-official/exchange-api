@@ -1,4 +1,5 @@
 import * as crypto from "@eventhorizon/exchange-crypto";
+import { SignedTpSl } from "@eventhorizon/exchange-crypto";
 import {
   AvailableBalance,
   CoinList,
@@ -26,7 +27,8 @@ import {
   User,
   WalletBalanceList,
   serializeQueryParams,
-	type OpenedOrdersList,
+  type OpenedOrdersList,
+  type RecentTrade,
 } from "./utils";
 
 export enum InstrumentListQueryField {
@@ -75,7 +77,7 @@ export interface OrderMassCancelByIdQuery {
   orderIds: string[];
 }
 
-export interface TpSlUpdateQuery extends crypto.SignedTpSl {
+export interface TpSlUpdateQuery extends SignedTpSl {
   id: string;
 }
 
@@ -177,6 +179,10 @@ export class ExchangeRestGateway {
 
   getTrades(init: TradesQuery) {
     return this.get<Trade[]>(`/api/market/${init.instrument}/trades`);
+  }
+
+  getRecentTrades(init: TradesQuery) {
+    return this.get<RecentTrade[]>(`/api/market/${init.instrument}/recent-trades`);
   }
 
   // User
