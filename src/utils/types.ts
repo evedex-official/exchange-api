@@ -263,6 +263,13 @@ export enum InstrumentVisibility {
   None = "none",
 }
 
+export enum InstrumentTrading {
+  All = 'all',
+  Restricted = 'restricted',
+  None = 'none',
+  OnlyClose = 'onlyClose',
+}
+
 export interface Instrument {
   id: string;
   name: string;
@@ -275,6 +282,7 @@ export interface Instrument {
   quantityIncrement: number;
   multiplier: number;
   visibility: InstrumentVisibility;
+  trading: InstrumentTrading;
 }
 
 export type InstrumentList = Instrument[];
