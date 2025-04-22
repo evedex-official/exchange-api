@@ -14,6 +14,7 @@ import {
   expandOrderBook,
   OrderBookRoundPrices,
   type RecentTrade,
+  type InstrumentUpdateEvent,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -323,5 +324,17 @@ export class ExchangeWsGateway {
 
   unListenFundingRate() {
     this.unListenChannel("funding-rate", true);
+  }
+
+  onInstrumentUpdate = signal<InstrumentUpdateEvent>();
+
+  listenInstruments() {
+    this.listenChannel<InstrumentUpdateEvent>("instruments", false, ({ data }) =>
+      this.onInstrumentUpdate(data),
+    );
+  }
+
+  unListenInstruments() {
+    this.unListenChannel("instruments", false);
   }
 }
