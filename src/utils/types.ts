@@ -264,10 +264,10 @@ export enum InstrumentVisibility {
 }
 
 export enum InstrumentTrading {
-  All = 'all',
-  Restricted = 'restricted',
-  None = 'none',
-  OnlyClose = 'onlyClose',
+  All = "all",
+  Restricted = "restricted",
+  None = "none",
+  OnlyClose = "onlyClose",
 }
 
 export interface Instrument {
@@ -283,6 +283,7 @@ export interface Instrument {
   multiplier: number;
   visibility: InstrumentVisibility;
   trading: InstrumentTrading;
+  updatedAt: Date;
 }
 
 export type InstrumentList = Instrument[];
@@ -306,6 +307,26 @@ export interface InstrumentMetrics extends Instrument {
   closePrice: number;
   volume: number;
   volumeBase: number;
+  updatedAt: Date;
+}
+
+export interface InstrumentUpdateEvent {
+  id: string;
+  name: string;
+  displayName: string;
+  lastPrice: number;
+  high: number;
+  low: number;
+  volume: number;
+  volumeBase: number;
+  closePrice: number;
+  markPrice: number;
+  openInterest: number;
+  minPrice: number;
+  maxPrice: number;
+  fatFingerPriceProtection: number;
+  slippageLimit: number;
+  updatedAt: Date;
 }
 
 export type InstrumentMetricsList = InstrumentMetrics[];
