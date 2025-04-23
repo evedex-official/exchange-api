@@ -1,5 +1,5 @@
 {
-  "name": "@eventhorizon/exchange-api",
+  "name": "@evedex/exchange-api",
   "version": "1.0.31",
   "description": "",
   "main": "dist/cjs/index.js",
@@ -61,7 +61,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@eventhorizon/exchange-crypto": "^1.0.8",
+    "@evedex/exchange-crypto": "^1.0.8",
     "big.js": "^6.2.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
   }
 }

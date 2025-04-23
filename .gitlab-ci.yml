@@ -2,32 +2,27 @@ default:
   image: mirror.gcr.io/node:latest
   before_script:
     - npm ci
-    - sed -i "s/groups\/59\/-/projects\/${CI_PROJECT_ID}/" ${CI_PROJECT_DIR}/.npmrc
-    - |
-      {
-        echo "//gitlab.eventhorizon.life/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
-      } | tee --append ${CI_PROJECT_DIR}/.npmrc
     - npm run build
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
+
 workflow:
   rules:
     - if: $CI_COMMIT_BRANCH
+
 variables:
-  NPM_TOKEN: ${CI_JOB_TOKEN}
-  DEPLOY_TOKEN: ${CI_JOB_TOKEN}
-  GITLAB_TOKEN: ${GITLAB_TOKEN}
-  KUBERNETES_MEMORY_REQUEST: 1024Mi
-  KUBERNETES_MEMORY_LIMIT: 1024Mi
+  KUBERNETES_MEMORY_REQUEST: 1536Mi
+  KUBERNETES_MEMORY_LIMIT: 1536Mi
+
 stages:
   - release
+
 publish:
   stage: release
+
   script:
-    - npm config set '//gitlab.eventhorizon.life/api/v4/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
-    - npm config set '//gitlab.eventhorizon.life/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
     - npx semantic-release
   rules:
     - if: $CI_COMMIT_BRANCH
