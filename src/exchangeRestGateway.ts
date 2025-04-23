@@ -1,5 +1,5 @@
-import * as crypto from "@eventhorizon/exchange-crypto";
-import { SignedTpSl } from "@eventhorizon/exchange-crypto";
+import * as crypto from "@evedex/exchange-crypto";
+import { SignedTpSl } from "@evedex/exchange-crypto";
 import {
   AvailableBalance,
   CoinList,

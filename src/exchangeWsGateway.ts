@@ -1,4 +1,4 @@
-import { utils as cryptoUtils } from "@eventhorizon/exchange-crypto";
+import { utils as cryptoUtils } from "@evedex/exchange-crypto";
 import {
   signal,
   Callback,
