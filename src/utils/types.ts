@@ -9,6 +9,7 @@ export interface PaginatedQuery {
 export type ListOf<T> = {
   list: T[];
   count: number;
+  next?: string;
 };
 
 // User

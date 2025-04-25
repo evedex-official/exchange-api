@@ -52,6 +52,7 @@ export interface OrderListQuery extends PaginatedQuery {
   type?: OrderType[] | OrderType;
   side?: crypto.utils.Side;
   version?: string | number;
+  next?: string;
 }
 
 export interface TpSlListQuery extends PaginatedQuery {
