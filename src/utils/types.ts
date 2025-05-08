@@ -136,6 +136,7 @@ export interface Order {
   side: cryptoUtils.Side;
   type: OrderType;
   quantity: number;
+  cashQuantity: number;
   limitPrice: number;
   stopPrice: number | null;
   status: OrderStatus;
@@ -165,6 +166,7 @@ export type OpenedOrder = Pick<
   | "unFilledQuantity"
   | "fee"
   | "updatedAt"
+  | "cashQuantity"
 >;
 
 export type OpenedOrdersList = OpenedOrder[];
