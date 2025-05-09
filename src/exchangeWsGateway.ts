@@ -228,6 +228,7 @@ export class ExchangeWsGateway {
   listenRecentTrades(query: ListenTradeQuery) {
     this.listenChannel<RecentTrade>(`recent-trade-${query.instrument}`, false, ({ data }) =>
       this.onRecentTrade({
+        executionId: data.executionId,
         instrument: data.instrument,
         side: data.side,
         fillQuantity: data.fillQuantity,
