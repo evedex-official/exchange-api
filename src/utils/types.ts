@@ -365,6 +365,7 @@ export interface Trade {
 }
 
 export interface RecentTrade {
+  executionId: string;
   instrument: string;
   side: cryptoUtils.Side;
   fillQuantity: number;
