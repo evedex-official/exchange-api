@@ -287,6 +287,11 @@ export interface Instrument {
   visibility: InstrumentVisibility;
   trading: InstrumentTrading;
   updatedAt: Date;
+  minQuantity: number;
+  maxQuantity: number;
+  slippageLimit: number;
+  fatFingerPriceProtection: number;
+  isPopular: boolean;
 }
 
 export type InstrumentList = Instrument[];
