@@ -287,6 +287,10 @@ export class ExchangeRestGateway {
     });
   }
 
+  batchReplaceLimitOrder(query: crypto.SignedReplaceLimitOrder[]) {
+    return this.authPut<{}>("/api/order/limit", query);
+  }
+
   createMarketOrder(query: crypto.SignedMarketOrder) {
     return this.authPost<Order>("/api/order/market", query);
   }
