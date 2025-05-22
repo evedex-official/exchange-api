@@ -340,6 +340,7 @@ export interface MarketInfo {
   fees: {
     maker: number;
     taker: number;
+    liquidation: number;
   };
   updatedAt: string;
 }
