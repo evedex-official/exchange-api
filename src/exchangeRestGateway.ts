@@ -28,6 +28,7 @@ import {
   WalletBalanceList,
   serializeQueryParams,
   type OpenedOrdersList,
+  type Power,
   type RecentTrade,
 } from "./utils";
 
@@ -205,6 +206,10 @@ export class ExchangeRestGateway {
 
   getAvailableBalance() {
     return this.authGet<AvailableBalance>("/api/market/available-balance");
+  }
+
+  getPower() {
+    return this.authGet<Power>("/api/market/power");
   }
 
   getPositions() {
