@@ -101,6 +101,15 @@ export interface AvailableBalance {
   positions: Record<string, number>;
 }
 
+export interface Power {
+  buy: {
+    power: number;
+  };
+  sell: {
+    power: number;
+  };
+}
+
 export interface Position {
   id: string;
   user: string;
