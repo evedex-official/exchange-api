@@ -93,6 +93,10 @@ export interface ExchangeRestGatewayOptions {
   httpClient: HttpClient;
 }
 
+export interface PowerQuery {
+  instrument: string;
+}
+
 export class ExchangeRestGateway {
   constructor(public readonly options: ExchangeRestGatewayOptions) {}
 
@@ -208,8 +212,8 @@ export class ExchangeRestGateway {
     return this.authGet<AvailableBalance>("/api/market/available-balance");
   }
 
-  getPower() {
-    return this.authGet<Power>("/api/market/power");
+  getPower({ instrument }: PowerQuery) {
+    return this.authGet<Power>(`/api/market/power?instrument=${instrument}`);
   }
 
   getPositions() {
