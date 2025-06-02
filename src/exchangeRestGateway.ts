@@ -212,8 +212,8 @@ export class ExchangeRestGateway {
     return this.authGet<AvailableBalance>("/api/market/available-balance");
   }
 
-  getPower({ instrument }: PowerQuery) {
-    return this.authGet<Power>(`/api/market/power?instrument=${instrument}`);
+  getPower(query: PowerQuery) {
+    return this.authGet<Power>(`/api/market/power`, serializeQueryParams(query));
   }
 
   getPositions() {
