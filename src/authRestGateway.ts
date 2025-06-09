@@ -1,10 +1,10 @@
 import { ApiKey, HttpClient, JWT, RefreshedJWT } from "./utils";
 
 export interface SignInSiweQuery {
-  address: string;
+  wallet: string;
   message: string;
   signature: string;
-  nonce?: string;
+  nonce: string;
 }
 
 export interface Nonce {
@@ -122,7 +122,7 @@ export class AuthRestGateway {
 
   // Actions
   signInSiwe(query: SignInSiweQuery) {
-    return this.post<Session>("/auth/sign-in/siwe", query);
+    return this.post<Session>("/auth/user/sign-up", query);
   }
 
   getNonce() {
