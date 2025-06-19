@@ -15,6 +15,7 @@ import {
   OrderBookRoundPrices,
   type RecentTrade,
   type InstrumentUpdateEvent,
+  Transfer,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -83,6 +84,10 @@ export interface FundingEvent {
   updatedAt: string;
 }
 
+export interface TransferEvent extends Transfer {
+  exchangeId: number;
+}
+
 export interface FundingRateEvent {
   instrument: string;
   fundingRate: string;
@@ -100,6 +105,10 @@ export interface UnListenAccountQuery extends UserParam {}
 export interface ListenFundingQuery extends UserParam {}
 
 export interface UnListenFundingQuery extends UserParam {}
+
+export interface ListenTransferQuery extends UserParam {}
+
+export interface UnListenTransferQuery extends UserParam {}
 
 export interface ListenPositionsQuery extends UserParam {}
 
@@ -265,6 +274,18 @@ export class ExchangeWsGateway {
 
   unListenFunding(query: UnListenFundingQuery) {
     this.unListenChannel(`funding-${query.userExchangeId}`, true);
+  }
+
+  onTransferUpdate = signal<TransferEvent>();
+
+  listenTransfer(query: ListenTransferQuery) {
+    this.listenChannel<TransferEvent>(`transfer-update-${query.userExchangeId}`, true, ({ data }) =>
+      this.onTransferUpdate(data),
+    );
+  }
+
+  unListenTransfer(query: UnListenTransferQuery) {
+    this.unListenChannel(`transfer-update-${query.userExchangeId}`, true);
   }
 
   onPositionUpdate = signal<Position>();

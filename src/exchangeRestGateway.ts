@@ -30,6 +30,9 @@ import {
   type OpenedOrdersList,
   type Power,
   type RecentTrade,
+  TransferType,
+  TransferStatus,
+  TransferList,
 } from "./utils";
 
 export enum InstrumentListQueryField {
@@ -60,6 +63,13 @@ export interface TpSlListQuery extends PaginatedQuery {
   instrument?: string | string[];
   status?: TpSlStatus | TpSlStatus[];
   type?: crypto.utils.TpSlType;
+}
+
+export interface TransferListQuery extends PaginatedQuery {
+  type?: TransferType[] | TransferType;
+  status?: TransferStatus[] | TransferStatus;
+  after?: Date;
+  before?: Date;
 }
 
 export interface PositionUpdateQuery {
@@ -214,6 +224,13 @@ export class ExchangeRestGateway {
 
   getPower(query: PowerQuery) {
     return this.authGet<Power>(`/api/market/power`, serializeQueryParams(query));
+  }
+
+  getTransfers(query: TransferListQuery) {
+    return this.authGet<TransferList>(
+      `/api/transfer`,
+      serializeQueryParams({ ...query, limit: query.limit, offset: query.offset ?? 0 }),
+    );
   }
 
   getPositions() {

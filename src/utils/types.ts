@@ -241,6 +241,8 @@ export interface Transfer {
   updatedAt: string;
 }
 
+export type TransferList = ListOf<Transfer>;
+
 // Instrument
 export interface Coin {
   id: string;
