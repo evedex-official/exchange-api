@@ -313,8 +313,13 @@ export class ExchangeRestGateway {
     });
   }
 
+  // @deprecated
   batchReplaceLimitOrder(query: crypto.SignedReplaceLimitOrder[]) {
     return this.authPut<{}>("/api/order/limit", query);
+  }
+
+  batchReplaceInstrumentLimitOrder(instrument: string, query: crypto.SignedReplaceLimitOrder[]) {
+    return this.authPut<{}>(`/api/order/limit/${instrument}`, query);
   }
 
   createMarketOrder(query: crypto.SignedMarketOrder) {
