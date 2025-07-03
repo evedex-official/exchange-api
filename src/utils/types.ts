@@ -160,6 +160,23 @@ export interface Order {
   group: OrderGroup;
 }
 
+interface BaseLimitOrderBatchCreateResult {
+  orderId: string;
+}
+
+export interface SuccessfulLimitOrderBatchCreateResult extends BaseLimitOrderBatchCreateResult {
+  success: true;
+}
+
+export interface FailedLimitOrderBatchCreateResult extends BaseLimitOrderBatchCreateResult {
+  success: false;
+  failReason: string;
+}
+
+export type LimitOrderBatchCreateResult =
+  | SuccessfulLimitOrderBatchCreateResult
+  | FailedLimitOrderBatchCreateResult;
+
 export type OrderList = ListOf<Order>;
 
 export type OpenedOrder = Pick<

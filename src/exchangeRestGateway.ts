@@ -33,6 +33,7 @@ import {
   TransferType,
   TransferStatus,
   TransferList,
+  type LimitOrderBatchCreateResult,
 } from "./utils";
 
 export enum InstrumentListQueryField {
@@ -301,6 +302,13 @@ export class ExchangeRestGateway {
   // Order
   createLimitOrder(query: crypto.SignedLimitOrder) {
     return this.authPost<Order>("/api/order/limit", query);
+  }
+
+  batchCreateLimitOrder(instrument: string, query: crypto.SignedLimitOrder[]) {
+    return this.authPost<LimitOrderBatchCreateResult[]>(
+      `/api/order/mass-limit/${instrument}`,
+      query,
+    );
   }
 
   replaceLimitOrder(query: crypto.SignedReplaceLimitOrder) {
