@@ -157,6 +157,7 @@ export interface Order {
   createdAt: string;
   updatedAt: string;
   triggeredAt: string | null;
+  exchangeRequestId: string;
   group: OrderGroup;
 }
 
