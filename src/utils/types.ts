@@ -118,6 +118,7 @@ export interface Position {
   quantity: number;
   avgPrice: number;
   fundingRate: number;
+  fee: number;
   leverage: number;
   maintenanceMargin: number;
   createdAt: string;
