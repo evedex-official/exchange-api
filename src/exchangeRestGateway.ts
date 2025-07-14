@@ -17,7 +17,6 @@ import {
   OrderStatus,
   OrderType,
   PaginatedQuery,
-  Position,
   PositionList,
   TpSl,
   TpSlList,
@@ -34,6 +33,7 @@ import {
   TransferStatus,
   TransferList,
   type LimitOrderBatchCreateResult,
+  type PositionUpdateResponse,
 } from "./utils";
 
 export enum InstrumentListQueryField {
@@ -290,7 +290,7 @@ export class ExchangeRestGateway {
 
   // Position
   updatePosition(query: PositionUpdateQuery) {
-    return this.authPut<Position>(`/api/position/${query.instrument}`, {
+    return this.authPut<PositionUpdateResponse>(`/api/position/${query.instrument}`, {
       leverage: query.leverage,
     });
   }

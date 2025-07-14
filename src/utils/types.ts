@@ -125,6 +125,11 @@ export interface Position {
   updatedAt: string;
 }
 
+export type PositionUpdateResponse = Pick<
+  Position,
+  "instrument" | "side" | "quantity" | "avgPrice" | "leverage" | "maintenanceMargin"
+>;
+
 export interface PositionMetrics extends Position {
   unRealizedPnL: number;
   adlLevel: number;
