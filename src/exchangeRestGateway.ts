@@ -299,14 +299,29 @@ export class ExchangeRestGateway {
     return this.authPost<Order>(`/api/position/${query.instrument}/close`, query);
   }
 
+  closePositionV2(query: crypto.SignedPositionCloseOrder) {
+    return this.authPost<Order>(`/api/v2/position/${query.instrument}/close`, query);
+  }
+
   // Order
   createLimitOrder(query: crypto.SignedLimitOrder) {
     return this.authPost<Order>("/api/order/limit", query);
   }
 
+  createLimitOrderV2(query: crypto.SignedLimitOrder) {
+    return this.authPost<Order>("/api/v2/order/limit", query);
+  }
+
   batchCreateLimitOrder(instrument: string, query: crypto.SignedLimitOrder[]) {
     return this.authPost<LimitOrderBatchCreateResult[]>(
       `/api/order/mass-limit/${instrument}`,
+      query,
+    );
+  }
+
+  batchCreateLimitOrderV2(instrument: string, query: crypto.SignedLimitOrder[]) {
+    return this.authPost<LimitOrderBatchCreateResult[]>(
+      `/api/v2/order/mass-limit/${instrument}`,
       query,
     );
   }
@@ -334,8 +349,16 @@ export class ExchangeRestGateway {
     return this.authPost<Order>("/api/order/market", query);
   }
 
+  createMarketOrderV2(query: crypto.SignedMarketOrder) {
+    return this.authPost<Order>("/api/v2/order/market", query);
+  }
+
   createStopLimitOrder(query: crypto.SignedStopLimitOrder) {
     return this.authPost<Order>("/api/order/stop-limit", query);
+  }
+
+  createStopLimitOrderV2(query: crypto.SignedStopLimitOrder) {
+    return this.authPost<Order>("/api/v2/order/stop-limit", query);
   }
 
   replaceStopLimitOrder(init: crypto.SignedReplaceStopLimitOrder) {
