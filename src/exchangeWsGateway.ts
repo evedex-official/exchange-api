@@ -270,6 +270,7 @@ export class ExchangeWsGateway {
         fillPrice: data.fillPrice,
         createdAt: data.createdAt,
         makerTakerFlag: data.makerTakerFlag,
+        orderId: data.orderId,
       }),
     );
   }
