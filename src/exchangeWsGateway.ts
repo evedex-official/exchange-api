@@ -16,6 +16,7 @@ import {
   type RecentTrade,
   type InstrumentUpdateEvent,
   Transfer,
+  type OrderFill,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -97,6 +98,10 @@ export interface FundingRateEvent {
 export interface UserParam {
   userExchangeId: string | number;
 }
+
+export interface ListenOrderFillsQuery extends UserParam {}
+
+export interface UnListenOrderFillsQuery extends UserParam {}
 
 export interface ListenAccountQuery extends UserParam {}
 
@@ -252,6 +257,27 @@ export class ExchangeWsGateway {
   }
 
   // User
+
+  onOrderFills = signal<OrderFill>();
+
+  listenOrderFills(query: ListenOrderFillsQuery) {
+    this.listenChannel<OrderFill>(`orderFills-${query.userExchangeId}`, false, ({ data }) =>
+      this.onOrderFills({
+        executionId: data.executionId,
+        instrument: data.instrument,
+        side: data.side,
+        fillQuantity: data.fillQuantity,
+        fillPrice: data.fillPrice,
+        createdAt: data.createdAt,
+        makerTakerFlag: data.makerTakerFlag,
+      }),
+    );
+  }
+
+  unListenOrderFills(query: UnListenOrderFillsQuery) {
+    this.unListenChannel(`orderFills-${query.userExchangeId}`, false);
+  }
+
   onAccountUpdate = signal<AccountEvent>();
 
   listenAccount(query: ListenAccountQuery) {
