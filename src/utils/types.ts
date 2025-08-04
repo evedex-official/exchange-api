@@ -415,3 +415,13 @@ export interface RecentTrade {
   fillPrice: number;
   createdAt: string;
 }
+
+export enum MakerTakerFlag {
+  Maker = "MAKER",
+  Taker = "TAKER",
+  None = "NONE",
+}
+
+export interface OrderFill extends RecentTrade {
+  makerTakerFlag: MakerTakerFlag;
+}
