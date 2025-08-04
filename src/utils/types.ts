@@ -424,4 +424,5 @@ export enum MakerTakerFlag {
 
 export interface OrderFill extends RecentTrade {
   makerTakerFlag: MakerTakerFlag;
+  orderId: string;
 }
