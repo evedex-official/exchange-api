@@ -26,3 +26,15 @@ publish:
     - npx semantic-release
   rules:
     - if: $CI_COMMIT_BRANCH
+
+trigger:system-tests:
+  stage: release
+  needs:
+    - publish
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: on_success
+  trigger:
+    project: web/qa-tests/system-tests
+    branch: master
+    strategy: depend
