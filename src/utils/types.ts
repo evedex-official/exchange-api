@@ -308,6 +308,17 @@ export enum InstrumentTrading {
   OnlyClose = "onlyClose",
 }
 
+export enum TradingSessionStatus {
+  Inherited = "INHERITED",
+  Opened = "OPEN",
+  Closed = "CLOSED",
+  Paused = "PAUSED",
+  Halted = "HALTED",
+  PreOpenNoCancel = "PRE_OPEN_NO_CANCEL",
+  PreOpen = "PRE_OPEN",
+  OnlyClose = "ONLY_CLOSE",
+}
+
 export interface Instrument {
   id: string;
   name: string;
@@ -321,6 +332,7 @@ export interface Instrument {
   multiplier: number;
   visibility: InstrumentVisibility;
   trading: InstrumentTrading;
+  marketState: TradingSessionStatus;
   updatedAt: Date;
   minQuantity: number;
   maxQuantity: number;
@@ -369,6 +381,9 @@ export interface InstrumentUpdateEvent {
   maxPrice: number;
   fatFingerPriceProtection: number;
   slippageLimit: number;
+  visibility: InstrumentVisibility;
+  trading: InstrumentTrading;
+  marketState: TradingSessionStatus;
   updatedAt: Date;
 }
 
