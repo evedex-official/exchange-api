@@ -316,7 +316,6 @@ export enum TradingSessionStatus {
   Halted = "HALTED",
   PreOpenNoCancel = "PRE_OPEN_NO_CANCEL",
   PreOpen = "PRE_OPEN",
-  OnlyClose = "ONLY_CLOSE",
 }
 
 export interface Instrument {
