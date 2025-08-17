@@ -1,5 +1,5 @@
 default:
-  image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/web/node_22_alpine:1.0.5
+  image: 207567782933.dkr.ecr.${AWS_REGION}.amazonaws.com/web/node_22_alpine:1.0.5
   before_script:
     - npm ci
     - npm run build
