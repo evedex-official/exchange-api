@@ -337,6 +337,7 @@ export interface Instrument {
   maxQuantity: number;
   slippageLimit: number;
   fatFingerPriceProtection: number;
+  markPriceLimit: number;
   isPopular: boolean;
 }
 
@@ -353,6 +354,7 @@ export interface InstrumentMetrics extends Instrument {
   fundingRateCreatedAt: Date;
   slippageLimit: number;
   fatFingerPriceProtection: number;
+  markPriceLimit: number;
   lastPrice: number;
   markPrice: number;
   openInterest: number;
@@ -379,6 +381,7 @@ export interface InstrumentUpdateEvent {
   minPrice: number;
   maxPrice: number;
   fatFingerPriceProtection: number;
+  markPriceLimit: number;
   slippageLimit: number;
   visibility: InstrumentVisibility;
   trading: InstrumentTrading;
