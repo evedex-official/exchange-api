@@ -1,6 +1,6 @@
 {
   "name": "@evedex/exchange-api",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
