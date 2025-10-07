@@ -321,7 +321,7 @@ export enum TradingSessionStatus {
 export interface Instrument {
   id: string;
   name: string;
-  from: Omit<Coin, "price">;
+  from: Omit<Coin, "price"> & { avgLastPrice: number };
   to: Omit<Coin, "price">;
   maxLeverage: number;
   leverageLimit: LeverageLimit;
