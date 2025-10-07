@@ -238,6 +238,10 @@ export class ExchangeRestGateway {
     return this.authGet<PositionList>("/api/position");
   }
 
+  getOrder(orderId: string) {
+    return this.authGet<Order>(`/api/order/${orderId}`);
+  }
+
   getOrders(query: OrderListQuery) {
     return this.authGet<OrderList>(
       `/api/order`,
