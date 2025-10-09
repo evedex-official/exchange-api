@@ -339,6 +339,9 @@ export interface Instrument {
   fatFingerPriceProtection: number;
   markPriceLimit: number;
   isPopular: boolean;
+  priceIncrement: number;
+  minPrice: number;
+  maxPrice: number;
 }
 
 export type InstrumentList = Instrument[];
