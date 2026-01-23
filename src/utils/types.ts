@@ -135,6 +135,14 @@ export interface PositionMetrics extends Position {
   adlLevel: number;
 }
 
+export interface PositionMetricsWithTpsl extends PositionMetrics {
+  tpslList: TpSl[];
+}
+
+export type PositionWithTpslList = {
+  list: PositionMetricsWithTpsl[];
+};
+
 export type PositionList = {
   list: PositionMetrics[];
 };
@@ -186,6 +194,12 @@ export type LimitOrderBatchCreateResult =
 
 export type OrderList = ListOf<Order>;
 
+export interface OrderWithTpsl extends Order {
+  tpslList: TpSl[];
+}
+
+export type OrderWithTpslList = ListOf<OrderWithTpsl>;
+
 export type OpenedOrder = Pick<
   Order,
   | "id"
@@ -208,6 +222,10 @@ export enum OrderFillFeeType {
   Liquidation = "liquidation",
   Adl = "adl",
   Order = "order",
+}
+
+export enum YesFlag {
+  Yes = "yes",
 }
 
 export interface OrderFillFee {

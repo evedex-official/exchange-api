@@ -13,11 +13,9 @@ import {
   Order,
   OrderBookRoundPrices,
   OrderGroup,
-  OrderList,
   OrderStatus,
   OrderType,
   PaginatedQuery,
-  PositionList,
   TpSl,
   TpSlList,
   TpSlStatus,
@@ -34,6 +32,9 @@ import {
   TransferList,
   type LimitOrderBatchCreateResult,
   type PositionUpdateResponse,
+  YesFlag,
+  type OrderWithTpslList,
+  type PositionWithTpslList,
 } from "./utils";
 
 export enum InstrumentListQueryField {
@@ -234,21 +235,25 @@ export class ExchangeRestGateway {
     );
   }
 
-  getPositions() {
-    return this.authGet<PositionList>("/api/position");
+  getPositions(withTpSL = false) {
+    return this.authGet<PositionWithTpslList>(
+      `/api/position`,
+      withTpSL ? serializeQueryParams({ withTpSL: YesFlag.Yes }) : undefined,
+    );
   }
 
   getOrder(orderId: string) {
     return this.authGet<Order>(`/api/order/${orderId}`);
   }
 
-  getOrders(query: OrderListQuery) {
-    return this.authGet<OrderList>(
+  getOrders(query: OrderListQuery, withTpSL = false) {
+    return this.authGet<OrderWithTpslList>(
       `/api/order`,
       serializeQueryParams({
         ...query,
         limit: query.limit,
         offset: query.offset ?? 0,
+        withTpSL: withTpSL ? YesFlag.Yes : "",
       }),
     );
   }
