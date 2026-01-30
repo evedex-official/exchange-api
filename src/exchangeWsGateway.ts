@@ -17,6 +17,7 @@ import {
   type InstrumentUpdateEvent,
   Transfer,
   type OrderFill,
+  type SubscriptionOptions,
 } from "./utils";
 
 export interface HeartbeatEvent {
@@ -140,19 +141,28 @@ export class ExchangeWsGateway {
 
   constructor(public readonly options: ExchangeWsGatewayOptions) {}
 
-  protected listenChannel<T>(name: string, recoverable: boolean, handler: Callback<{ data: T }>) {
+  protected listenChannel<T>(
+    name: string,
+    recoverable: boolean,
+    handler: Callback<{ data: T }>,
+    options: Partial<SubscriptionOptions> = {},
+  ) {
     if (this.listenedChannels.has(name)) return;
 
-    const channel = this.options.wsClient.assignChannel(name, { recoverable });
+    const channel = this.options.wsClient.assignChannel(name, { ...options, recoverable });
     channel.onPublication(handler);
     channel.subscribe();
     this.listenedChannels.add(name);
   }
 
-  protected unListenChannel(name: string, recoverable: boolean) {
+  protected unListenChannel(
+    name: string,
+    recoverable: boolean,
+    options: Partial<SubscriptionOptions> = {},
+  ) {
     if (!this.listenedChannels.has(name)) return;
 
-    this.options.wsClient.assignChannel(name, { recoverable }).unsubscribe();
+    this.options.wsClient.assignChannel(name, { ...options, recoverable }).unsubscribe();
     this.listenedChannels.delete(name);
   }
 
