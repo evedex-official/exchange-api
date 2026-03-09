@@ -294,6 +294,7 @@ export interface Coin {
   precision: number;
   showPrecision: number;
   price: number;
+  createdAt: string;
 }
 
 export type CoinList = {
@@ -339,52 +340,47 @@ export enum TradingSessionStatus {
 export interface Instrument {
   id: string;
   name: string;
+  displayName: string;
   from: Omit<Coin, "price"> & { avgLastPrice: number };
   to: Omit<Coin, "price">;
   maxLeverage: number;
   leverageLimit: LeverageLimit;
   maintenanceMargin: MaintenanceMarginMap;
   lotSize: number;
+  priceIncrement: number;
   quantityIncrement: number;
   multiplier: number;
+  minVolume: number;
+  minPrice: number;
+  maxPrice: number;
+  minQuantity: number;
+  maxQuantity: number;
+  slippageLimit: number;
+  lastPrice: number;
+  markPrice: number;
+  fatFingerPriceProtection: number;
+  markPriceLimit: number;
   visibility: InstrumentVisibility;
   trading: InstrumentTrading;
   marketState: TradingSessionStatus;
   updatedAt: Date;
-  minQuantity: number;
-  maxQuantity: number;
-  slippageLimit: number;
-  fatFingerPriceProtection: number;
-  markPriceLimit: number;
+  startDate: Date | null;
   isPopular: boolean;
-  priceIncrement: number;
-  minPrice: number;
-  maxPrice: number;
+  newLabel: boolean;
 }
 
 export type InstrumentList = Instrument[];
 
 export interface InstrumentMetrics extends Instrument {
-  isPopular: boolean;
-  minPrice: number;
-  maxPrice: number;
-  minQuantity: number;
-  maxQuantity: number;
   maxSlippage: number;
   fundingRate: number;
   fundingRateCreatedAt: Date;
-  slippageLimit: number;
-  fatFingerPriceProtection: number;
-  markPriceLimit: number;
-  lastPrice: number;
-  markPrice: number;
   openInterest: number;
   low: number;
   high: number;
   closePrice: number;
   volume: number;
   volumeBase: number;
-  updatedAt: Date;
 }
 
 export interface InstrumentUpdateEvent {
