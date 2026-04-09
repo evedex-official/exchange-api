@@ -325,6 +325,7 @@ export enum InstrumentTrading {
   Restricted = "restricted",
   None = "none",
   OnlyClose = "onlyClose",
+  MarketMakerOnly = "marketMakerOnly",
 }
 
 export enum TradingSessionStatus {
