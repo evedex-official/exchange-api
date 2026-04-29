@@ -338,12 +338,37 @@ export enum TradingSessionStatus {
   PreOpen = "PRE_OPEN",
 }
 
+export interface ScheduleSession {
+  status: InstrumentTrading;
+  start: string;
+  end: string;
+}
+
+export interface ScheduleDaySettings {
+  day: number;
+  sessions: ScheduleSession[];
+}
+
+export interface ScheduleSpecificDateSettings {
+  date: string;
+  sessions: ScheduleSession[];
+}
+
+export interface Schedule {
+  id: string;
+  name: string;
+  timezone: string;
+  days: ScheduleDaySettings[];
+  specificDates: ScheduleSpecificDateSettings[];
+}
+
 export interface Instrument {
   id: string;
   name: string;
   displayName: string;
   from: Omit<Coin, "price"> & { avgLastPrice: number };
   to: Omit<Coin, "price">;
+  schedule: Schedule;
   maxLeverage: number;
   leverageLimit: LeverageLimit;
   maintenanceMargin: MaintenanceMarginMap;
