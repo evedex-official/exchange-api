@@ -407,6 +407,7 @@ export interface InstrumentMetrics extends Instrument {
   closePrice: number;
   volume: number;
   volumeBase: number;
+  valueAtRisk: number;
 }
 
 export interface InstrumentUpdateEvent {
